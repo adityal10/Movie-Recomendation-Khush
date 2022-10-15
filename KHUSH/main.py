@@ -17,12 +17,17 @@ from PIL import Image, ImageTk
 
 from tkinter import Canvas
 
-print("hi")
+import customtkinter
+
+def Clear():
+        entry.delete(0, END)
+        textbox.delete("1", 'end')
+
 
 
 def Favourite_movie(movie_name):
     if len(movie_name) != 0:
-        movds=pd.read_csv('movies.csv')
+        movds=pd.read_csv('KHUSH\movies.csv')
         selected_features=['genres','keywords','tagline','cast','director']
         # print(selected_features)
         for feature in selected_features:
@@ -57,62 +62,141 @@ def Favourite_movie(movie_name):
         k=1
         data = []
         # print(top10_recomended)
+               
+        heading_text = f"Top 10 related movies for '{movie_name}' are:"
+        textbox.insert(END, heading_text+'\n\n\n')
+
         for i in top10_recomended:
             index=i[0]
-
             title_of_movie=movds[movds.index==index]['title'].values
             for i in title_of_movie:
-                print(k,i)
+                # print(k,i)
                 data.append(i)
-                text.insert(INSERT, i)
-
+                # text.insert(INSERT, i)
+                textbox.insert(END, f'{k}. {i}\n\n')
                 k+=1
-        print(data)
-       
+        # print(data)
+
         
 
         #delete's the input
-        movie.delete(0, END)
     else:
         messagebox.showerror("Oops", message="Please enter a movie name.")
 
 
 
-window = Tk()
-window.title("Movie Recommendation System")
-window.config(padx=50, pady=50)
+# window = Tk()
+# window.title("Movie Recommendation System")
+# window.config(padx=50, pady=50)
 
-canvas = Canvas(width=128, height=140)
-image = PhotoImage(file="logo-1.png")
-canvas.create_image(64,64,image=image)
-
-
-global text
-#text
-text= Text(window)
+# canvas = Canvas(width=128, height=140)
+# image = PhotoImage(file="logo-1.png")
+# canvas.create_image(64,64,image=image)
 
 
-# my_img=ImageTk.PhotoImage(image)
-canvas.grid(column=2, row=0)
-# label=Label(window, image=my_img)
+# global text
+# #text
+# text= Text(window)
 
 
-my_label_1 = Label(text="Favourite Movie:")
-my_label_1.grid(column=0, row=1)
-global movie
-movie  = Entry(width=30)
-movie.focus()
-movie.grid(column=2, row=1)
+# # my_img=ImageTk.PhotoImage(image)
+# canvas.grid(column=2, row=0)
+# # label=Label(window, image=my_img)
 
 
-search_button = Button(text="Search", width=10, command=lambda: Favourite_movie(movie_name=movie.get()))
-window.bind('<Return>',lambda event: Favourite_movie(movie_name=movie.get()))
+# my_label_1 = Label(text="Favourite Movie:")
+# my_label_1.grid(column=0, row=1)
+# global movie
+# movie  = Entry(width=30)
+# movie.focus()
+# movie.grid(column=2, row=1)
 
-search_button.grid(column=4, row=1)
+
+# search_button = Button(text="Search", width=10, command=lambda: Favourite_movie(movie_name=movie.get()))
+# window.bind('<Return>',lambda event: Favourite_movie(movie_name=movie.get()))
+
+# search_button.grid(column=4, row=1)
 
 
-# Output = Text(root, height = 5,width = 25, bg = "light cyan")
+# # Output = Text(root, height = 5,width = 25, bg = "light cyan")
+
+# window.mainloop()
+
+
+window = customtkinter.CTk()
+window.geometry(f"{900}x{550}")
+window.title("Movie Recomendation System")
+window.minsize(900,550)
+window.maxsize(900,550)
+
+#textbox
+textbox = customtkinter.CTkTextbox(window,
+                                width=470,
+                                height=440,
+                                border_width=2,
+                                text_font=('Popins',12),
+                                )
+textbox.place(relx=0.73, rely=0.555, anchor='c')
+
+
+#label name
+# text_var = StringVar(value="Your Favourite Film: ")
+# label = customtkinter.CTkLabel(master=window,
+#                                textvariable=text_var,
+#                                width=160,
+#                                height=30,
+#                             #    fg_color=("white", "black"),
+#                                corner_radius=6)
+# label.place(relx=0.3, rely=0.5, anchor=CENTER)
+
+#IndexError errors
+#name entry
+entry = customtkinter.CTkEntry(master=window,
+                               placeholder_text="Enter you're favourite film",
+                               width=400,
+                               height=30,
+                               border_width=2,
+                               corner_radius=0)
+entry.place(relx=0.695, rely=0.1, anchor=CENTER)
+
+
+#buttons
+img_search = PhotoImage(file="KHUSH\search1.png")
+button_search = customtkinter.CTkButton(master=window,
+                                 image = img_search,
+                                 fg_color='white',
+                                 hover_color="grey",
+                                 width=30,
+                                 height=30,
+                                 border_width=0,
+                                 corner_radius=0,
+                                 text=None,
+                                 command=lambda: Favourite_movie(movie_name=entry.get()))
+button_search.place(relx=0.9, rely=0.1, anchor=CENTER)
+
+button_clear = customtkinter.CTkButton(master=window,
+                                 width=35,
+                                 height=7.5,
+                                 fg_color='red',
+                                 border_width=0,
+                                 corner_radius=4,
+                                 text="Clear",
+                                 command=Clear)
+button_clear.place(relx=0.95, rely=0.1, anchor=CENTER)
+
+window.bind('<Return>',lambda event: Favourite_movie(movie_name=entry.get()))#enter key
+
+
+#image
+img = PhotoImage(file="KHUSH\pic.png")
+image = customtkinter.CTkButton(master=window,
+                                fg_color=None,
+                                image = img, 
+                                text=None, 
+                                border_color=None,
+                                hover=False, 
+                                corner_radius=8
+                                )
+image.place(relx=0, rely=0)
 
 window.mainloop()
-
-
