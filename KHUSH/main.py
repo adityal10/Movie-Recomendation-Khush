@@ -28,6 +28,12 @@ import customtkinter
 
 
 
+# def get_movie(movie_name):
+
+#     return len(movie_name)
+
+
+
 def Favourite_movie(movie_name):
     try:
         if len(movie_name) != 0:
@@ -119,55 +125,21 @@ def Favourite_movie(movie_name):
                     textbox.insert(END, f'{k}. {i}\n\n')
                     k+=1
             # print(data)
-
-
+           
 
             #delete's the input
         else:
             messagebox.showerror("Oops", message="Please enter a movie name.")
     except IndexError:
             messagebox.showerror("Oops", message="Please enter a valid movie name.")
-            entry.delete(0, END)
+            # entry.delete(0, END)
+            # print(entry.get())
 
 
+    
+            
+            
 
-
-# window = Tk()
-# window.title("Movie Recommendation System")
-# window.config(padx=50, pady=50)
-
-# canvas = Canvas(width=128, height=140)
-# image = PhotoImage(file="logo-1.png")
-# canvas.create_image(64,64,image=image)
-
-
-# global text
-# #text
-# text= Text(window)
-
-
-# # my_img=ImageTk.PhotoImage(image)
-# canvas.grid(column=2, row=0)
-# # label=Label(window, image=my_img)
-
-
-# my_label_1 = Label(text="Favourite Movie:")
-# my_label_1.grid(column=0, row=1)
-# global movie
-# movie  = Entry(width=30)
-# movie.focus()
-# movie.grid(column=2, row=1)
-
-
-# search_button = Button(text="Search", width=10, command=lambda: Favourite_movie(movie_name=movie.get()))
-# window.bind('<Return>',lambda event: Favourite_movie(movie_name=movie.get()))
-
-# search_button.grid(column=4, row=1)
-
-
-# # Output = Text(root, height = 5,width = 25, bg = "light cyan")
-
-# window.mainloop()
 
 
 window = customtkinter.CTk()
@@ -177,7 +149,7 @@ window.minsize(900,550)
 window.maxsize(900,550)
 
 #textbox
-textbox = customtkinter.CTkTextbox(window,
+textbox = customtkinter.CTkTextbox(master=window,
                                 width=470,
                                 height=440,
                                 border_width=2,
@@ -202,7 +174,7 @@ button_search = customtkinter.CTkButton(master=window,
                                  image = img_search,
                                  fg_color='white',
                                  hover_color="grey",
-                                 width=30,
+                                 width=34,
                                  height=30,
                                  border_width=0,
                                  corner_radius=0,
