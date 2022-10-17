@@ -134,11 +134,11 @@ def Favourite_movie(movie_name):
             messagebox.showerror("Oops", message="Please enter a valid movie name.")
             # entry.delete(0, END)
             # print(entry.get())
+            
 
 
-    
-            
-            
+
+
 
 
 
