@@ -1,4 +1,4 @@
-#imports
+#imports ML
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,13 +10,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import difflib
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+#UI imports
 import pyperclip
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
-
 from tkinter import Canvas
-
 import customtkinter
 
 # def Clear():
@@ -35,6 +35,21 @@ import customtkinter
 
 
 def Favourite_movie(movie_name):
+
+
+    # ---------------- updates a new textbox with a new textbox --------------
+    global textbox
+    #destroy's the previous box
+    textbox.destroy()
+    #creates a new textbox
+    textbox = customtkinter.CTkTextbox(master=window,
+        width=470,
+        height=440,
+        border_width=2,
+        text_font= 'Poppins 12')
+    textbox.place(relx=0.73, rely=0.555, anchor=CENTER)
+    # -----------------------------------------------------------------------------
+
     try:
         if len(movie_name) != 0:
             movds=pd.read_csv('KHUSH\movies.csv')
@@ -81,17 +96,12 @@ def Favourite_movie(movie_name):
             for_ = "for"
             name = movie_name
             are = "are"
-
             movie_name_len = int(len(name))
-            
             font = 'Poppins 12 bold'
-            textbox.insert(END, f"{top} {num} {related} {movies} {for_} '{name}' {are}: \n\n")
 
-            # heading_text = f"Top 10 related movies for '{movie_name}' are:"
-            # textbox.insert(END, heading_text+'\n\n\n')
+            #inserts text inside the textbox
+            textbox.insert(END, f"{top} {num} {related} {movies} {for_} ' {name} ' {are}: \n\n")
 
-            # textbox.tag_add("my_hg", '1.0','1.5')
-            # textbox.tag_config("my_hg", background='yellow', font=('Times New Roman',12))
 
             textbox.tag_add(top, '1.0','1.3')
             textbox.tag_config(top, font=font)
@@ -125,15 +135,36 @@ def Favourite_movie(movie_name):
                     textbox.insert(END, f'{k}. {i}\n\n')
                     k+=1
             # print(data)
-           
-
-            #delete's the input
+            
         else:
             messagebox.showerror("Oops", message="Please enter a movie name.")
+
+            #destroy's the previous box
+            textbox.destroy()
+            #creates a new textbox
+            textbox = customtkinter.CTkTextbox(master=window,
+                width=470,
+                height=440,
+                border_width=2,
+                text_font= 'Poppins 12')
+            textbox.place(relx=0.73, rely=0.555, anchor=CENTER)
+
+
     except IndexError:
             messagebox.showerror("Oops", message="Please enter a valid movie name.")
-            # entry.delete(0, END)
-            # print(entry.get())
+
+
+            #destroy's the previous box
+            textbox.destroy()
+            #creates a new textbox
+            textbox = customtkinter.CTkTextbox(master=window,
+                width=470,
+                height=440,
+                border_width=2,
+                text_font= 'Poppins 12')
+            textbox.place(relx=0.73, rely=0.555, anchor=CENTER)
+            
+            
             
 
 
@@ -148,13 +179,12 @@ window.title("Movie Recomendation System")
 window.minsize(900,550)
 window.maxsize(900,550)
 
-#textbox
+
 textbox = customtkinter.CTkTextbox(master=window,
-                                width=470,
-                                height=440,
-                                border_width=2,
-                                text_font= 'Poppins 12',
-                                )
+                width=470,
+                height=440,
+                border_width=2,
+                text_font= 'Poppins 12')
 textbox.place(relx=0.73, rely=0.555, anchor=CENTER)
 
 
