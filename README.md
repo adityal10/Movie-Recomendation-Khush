@@ -1,1 +1,1 @@
-# khush_movie_recomendation
+# kush_movie_recomendation
